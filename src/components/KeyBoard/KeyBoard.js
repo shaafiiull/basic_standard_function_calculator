@@ -71,24 +71,31 @@ class KeyBoard extends Component {
       },
       {
         id: 5,
-        symbol: "%",
-      },
-      {
-        id: 6,
-        symbol: "√",
-      },
-      {
-        id: 7,
         symbol: "=",
       },
     ];
+    const {
+      addNumber,
+      clearOutputByOneDigit,
+      clearOutput,
+      addOperator,
+      calculateResult,
+    } = this.props;
     return (
       <div>
-        <div className="flex flex-row border border-slate-500 border-t-0">
-          <h1 className="border-r-2 border-solid border-red-200 basis-1/2 bg-red-400 cursor-pointer">
+        <div className="flex flex-row border border-slate-500 border-t-0 text-5xl">
+          <h1
+            className="border-r-2 border-solid border-red-200 basis-1/2 bg-red-400 cursor-pointer"
+            onClick={clearOutputByOneDigit}
+          >
             C
           </h1>
-          <h1 className="basis-1/2 bg-lime-300 cursor-pointer">AC</h1>
+          <h1
+            className="basis-1/2 bg-lime-300 cursor-pointer"
+            onClick={clearOutput}
+          >
+            AC
+          </h1>
         </div>
         <div className="flex flex-row border-2">
           <div className="border-r-2 border-solid border-red-200 grid grid-cols-3 gap-2 basis-1/2">
@@ -96,17 +103,21 @@ class KeyBoard extends Component {
               <p
                 key={digit.id}
                 className="bg-fuchsia-600 py-2 cursor-pointer font-bold		"
+                onClick={addNumber}
               >
                 {digit.digit}
               </p>
             ))}
           </div>
-          <div className="grid grid-cols-3 gap-2 basis-1/2">
+          <div className="grid grid-cols-2 gap-2 basis-1/2">
             {operators.map((opr) => (
               <p
+                onClick={opr.id === 5 ? calculateResult : addOperator}
                 key={opr.id}
                 className="bg-orange-400 py-2 cursor-pointer text-4xl"
-                style={{ gridColumn: `${opr.id === 7 ? "1/4" : "1/"}` }}
+                style={{
+                  gridColumn: `${opr.id === 5 ? "1/3" : "1/"}`,
+                }}
               >
                 {opr.symbol}
               </p>
